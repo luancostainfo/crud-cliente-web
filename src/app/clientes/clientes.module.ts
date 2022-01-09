@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { ClientesRoutingModule } from './clientes-routing.module';
-import { ClientesListagemComponent } from './clientes-listagem/clientes-listagem.component';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import {ClientesRoutingModule} from './clientes-routing.module';
+import {ClientesListagemComponent} from './clientes-listagem/clientes-listagem.component';
+import {CardModule} from 'primeng/card';
+import {ButtonModule} from 'primeng/button';
 
 
 @NgModule({

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ClientesService} from "../../shared/servicos/clientes.service";
+import {ClienteResumido} from "../../shared/models/ClienteResumido.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-clientes-listagem',
@@ -7,13 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesListagemComponent implements OnInit {
 
-  numbers!: number[];
+  clientes$!: Observable<ClienteResumido[]>;
 
-  constructor() {
+  constructor(private clientesService: ClientesService) {
   }
 
   ngOnInit(): void {
-    this.numbers = Array(12).fill(0).map((x, i) => i);
+    this.clientes$ = this.clientesService.listarTodos();
   }
 
 }
