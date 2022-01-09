@@ -5,7 +5,13 @@
       <p>Esse cliente possui <span class="font-bold">{{ cliente.quantidadeEmails }}</span> e-mails e <span
         class="font-bold">{{ cliente.quantidadeTelefones }}</span> telefones.</p>
       <ng-template pTemplate="footer">
-        <p-button styleClass="p-button-outlined p-button-info" label="Ver" icon="pi pi-eye"></p-button>
+        <p-button
+          styleClass="p-button-outlined p-button-info"
+          label="Ver"
+          icon="pi pi-eye"
+          [routerLink]="['detalhar', cliente.id]"
+        >
+        </p-button>
         <p-button styleClass="p-button-outlined p-button-success" label="Editar" icon="pi pi-pencil"></p-button>
         <p-button styleClass="p-button-outlined p-button-danger" label="Excluir" icon="pi pi-trash"></p-button>
       </ng-template>

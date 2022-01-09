@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, take} from "rxjs";
 import {ClienteResumido} from "../models/ClienteResumido.model";
+import {ClienteDto} from "../models/ClienteDto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class ClientesService {
 
   listarTodos(): Observable<ClienteResumido[]> {
     return this.http.get<ClienteResumido[]>(this.API_URL);
+  }
+
+  buscarPorId(id: number): Observable<ClienteDto> {
+    return this.http.get<ClienteDto>(`${this.API_URL}/${id}`).pipe(take(1));
   }
 }

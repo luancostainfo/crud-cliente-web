@@ -5,17 +5,21 @@ import {ClientesRoutingModule} from './clientes-routing.module';
 import {ClientesListagemComponent} from './clientes-listagem/clientes-listagem.component';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
+import {DividerModule} from "primeng/divider";
+import {ClienteDetalheComponent} from "./cliente-detalhe/cliente-detalhe.component";
 
 
 @NgModule({
   declarations: [
-    ClientesListagemComponent
+    ClientesListagemComponent,
+    ClienteDetalheComponent
   ],
   imports: [
     CommonModule,
     ClientesRoutingModule,
     CardModule,
-    ButtonModule
+    ButtonModule,
+    DividerModule
   ]
 })
 export class ClientesModule {

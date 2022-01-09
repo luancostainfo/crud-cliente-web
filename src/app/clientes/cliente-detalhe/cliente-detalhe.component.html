@@ -1,0 +1,56 @@
+<div class="card" *ngIf="cliente">
+
+  <p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+      <i class="pi pi-user p-mr-2"></i>&nbsp;
+      <b>Cliente</b>
+    </div>
+  </p-divider>
+
+  <h1>{{ cliente.nome }}</h1>
+  <p>CPF: {{ cliente.cpf }}</p>
+
+  <p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+      <i class="pi pi-home p-mr-2"></i>&nbsp;
+      <b>Endereço</b>
+    </div>
+  </p-divider>
+
+  <p><span class="font-bold">CEP:</span> {{ cliente.endereco.cep }}</p>
+  <p><span class="font-bold">Logradouro:</span> {{ cliente.endereco.logradouro }}</p>
+  <p><span class="font-bold">Complemento:</span> {{ cliente.endereco.complemento }}</p>
+  <p><span class="font-bold">Cidade:</span> {{ cliente.endereco.cidade }}</p>
+  <p><span class="font-bold">UF:</span> {{ cliente.endereco.uf }}</p>
+  <p><span class="font-bold">Bairro:</span> {{ cliente.endereco.bairro }}</p>
+
+  <p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+      <i class="pi pi-phone p-mr-2"></i>&nbsp;
+      <b>Telefones</b>
+    </div>
+  </p-divider>
+
+  <p *ngFor="let telefone of cliente.telefones">
+    {{ telefone.tipoTelefone }} - {{ telefone.numeroTelefone }}
+  </p>
+
+  <p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+      <i class="pi pi-envelope p-mr-2"></i>&nbsp;
+      <b>E-mails</b>
+    </div>
+  </p-divider>
+
+  <p *ngFor="let email of cliente.emails">
+    {{ email }}
+  </p>
+
+  <p-button
+    styleClass="p-button-outlined p-button-secondary"
+    label="Voltar"
+    icon="pi pi-arrow-left"
+    [routerLink]="['/clientes']"
+  ></p-button>
+
+</div>
