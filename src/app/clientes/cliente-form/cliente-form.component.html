@@ -17,7 +17,8 @@
       <!-- Endereço -->
       <div class="field col-12 md:col-3">
         <label for="cep">CEP</label>
-        <p-inputMask styleClass="inputfield w-full" id="cep" mask="99.999-999" formControlName="cep"></p-inputMask>
+        <p-inputMask styleClass="inputfield w-full" id="cep" mask="99.999-999" formControlName="cep"
+                     (onBlur)="consultarCep()"></p-inputMask>
       </div>
 
       <div class="col-12"></div>

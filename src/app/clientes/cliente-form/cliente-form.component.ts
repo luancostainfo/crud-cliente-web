@@ -55,4 +55,25 @@ export class ClienteFormComponent implements OnInit {
   // }
 
 
+  consultarCep() {
+    const cep = this.formulario.get('endereco.cep')?.value;
+    console.log('cep aqui', cep);
+    if (cep != null && cep !== '') {
+      this.cepService.consultarCep(cep).subscribe(dados => {
+        this.populaDadosDeEndereco(dados);
+      });
+    }
+  }
+
+  private populaDadosDeEndereco(dados: any): void {
+    this.formulario.patchValue({
+      endereco: {
+        logradouro: dados.logradouro,
+        bairro: dados.bairro,
+        complemento: dados.complemento,
+        cidade: dados.localidade,
+        uf: dados.uf
+      }
+    });
+  }
 }
