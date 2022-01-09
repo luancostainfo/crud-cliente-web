@@ -9,12 +9,19 @@ import {DividerModule} from "primeng/divider";
 import {ClienteDetalheComponent} from "./cliente-detalhe/cliente-detalhe.component";
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { ClienteFormComponent } from './cliente-form/cliente-form.component';
+import {InputTextModule} from "primeng/inputtext";
+import {InputMaskModule} from "primeng/inputmask";
+import {RippleModule} from "primeng/ripple";
+import {DropdownModule} from "primeng/dropdown";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     ClientesListagemComponent,
-    ClienteDetalheComponent
+    ClienteDetalheComponent,
+    ClienteFormComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +30,12 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     ButtonModule,
     DividerModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputTextModule,
+    InputMaskModule,
+    RippleModule,
+    DropdownModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientesModule {

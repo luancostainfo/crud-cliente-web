@@ -1,0 +1,56 @@
+<h1>Cliente</h1>
+
+<form [formGroup]="formulario" class="card">
+  <div class="formgrid grid">
+
+    <div class="field col-12 md:col-6">
+      <label for="nomeCompleto">Nome Completo</label>
+      <input pInputText id="nomeCompleto" type="text" class="inputfield w-full" formControlName="nome">
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="cpf">CPF</label>
+      <p-inputMask styleClass="inputfield w-full" id="cpf" mask="999.999.999-99" formControlName="cpf"></p-inputMask>
+    </div>
+
+    <ng-container formGroupName="endereco">
+      <!-- Endereço -->
+      <div class="field col-12 md:col-3">
+        <label for="cep">CEP</label>
+        <p-inputMask styleClass="inputfield w-full" id="cep" mask="99.999-999" formControlName="cep"></p-inputMask>
+      </div>
+
+      <div class="col-12"></div>
+
+      <div class="field col-12 md:col-3">
+        <label for="estado">UF</label>
+        <input pInputText id="estado" type="text" class="inputfield w-full" formControlName="uf">
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="cidade">Cidade</label>
+        <input pInputText id="cidade" type="text" class="inputfield w-full" formControlName="cidade">
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="bairro">Bairro</label>
+        <input pInputText id="bairro" type="text" class="inputfield w-full" formControlName="bairro">
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="logradouro">Logradouro</label>
+        <input pInputText id="logradouro" type="text" class="inputfield w-full" formControlName="logradouro">
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="complemento">Complemento</label>
+        <input pInputText id="complemento" type="text" class="inputfield w-full" formControlName="complemento">
+      </div>
+    </ng-container>
+
+  </div>
+
+  <p-button type="submit" (click)="salvar()" styleClass="p-button-primary mt-5 w-full" label="Salvar"></p-button>
+</form>
+
+{{ formulario.value | json }}
