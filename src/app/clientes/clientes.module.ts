@@ -7,6 +7,8 @@ import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {DividerModule} from "primeng/divider";
 import {ClienteDetalheComponent} from "./cliente-detalhe/cliente-detalhe.component";
+import {ToastModule} from "primeng/toast";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {ClienteDetalheComponent} from "./cliente-detalhe/cliente-detalhe.compone
     ClientesRoutingModule,
     CardModule,
     ButtonModule,
-    DividerModule
+    DividerModule,
+    ToastModule,
+    ConfirmDialogModule
   ]
 })
 export class ClientesModule {

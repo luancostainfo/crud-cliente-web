@@ -16,10 +16,14 @@ export class ClientesService {
   }
 
   listarTodos(): Observable<ClienteResumido[]> {
-    return this.http.get<ClienteResumido[]>(this.API_URL);
+    return this.http.get<ClienteResumido[]>(this.API_URL).pipe(take(1));
   }
 
   buscarPorId(id: number): Observable<ClienteDto> {
     return this.http.get<ClienteDto>(`${this.API_URL}/${id}`).pipe(take(1));
+  }
+
+  excluir(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/${id}`).pipe(take(1));
   }
 }
