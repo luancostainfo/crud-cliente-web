@@ -7,8 +7,13 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
+import { environment } from '../../environments/environment';
+
+export function tokenGetter(): string | null {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -23,12 +28,13 @@ import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return '';
-        }
+        tokenGetter,
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedRoutes
       }
     }),
   ],
   providers: [JwtHelperService]
 })
-export class SegurancaModule { }
+export class SegurancaModule {
+}
