@@ -82,10 +82,10 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
   private configurarFormulario(): void {
     this.formulario = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      cpf: ['', [Validators.required]],
+      cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}\\-[0-9]{2}')]],
       email: ['', [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: ['', Validators.required],
+        cep: ['', [Validators.required, Validators.pattern('[0-9]{2}\\.[0-9]{3}-[0-9]{3}')]],
         uf: ['', Validators.required],
         cidade: ['', Validators.required],
         bairro: ['', Validators.required],
