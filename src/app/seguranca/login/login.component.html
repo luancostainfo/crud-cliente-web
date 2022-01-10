@@ -1,21 +1,20 @@
-<form autocomplete="off" class="formgrid grid justify-content-center mt-8">
+<form autocomplete="off" class="formgrid grid justify-content-center mt-8" [formGroup]="formularioLogin">
 
   <div class="col-6 p-5 shadow-4 login-container">
     <h1>Entre em sua conta</h1>
 
     <div class="field col-12 md:col-12">
-      <label for="email">Email</label>
-      <input pInputText type="text" id="email" class="inputfield w-full">
+      <label for="usuario">Usuario</label>
+      <input pInputText type="text" id="usuario" class="inputfield w-full" formControlName="usuario">
     </div>
-
 
     <div class="field col-12 md:col-12">
       <label for="senha">Senha</label>
-      <input pInputText type="password" id="senha" class="inputfield w-full">
+      <input pInputText type="password" id="senha" class="inputfield w-full" formControlName="senha">
     </div>
 
     <div class="field col-12 md:col-12">
-      <p-button styleClass="p-button-primary mt-5 w-full" label="Entrar"></p-button>
+      <p-button styleClass="p-button-primary mt-5 w-full" label="Entrar" (click)="login()"></p-button>
     </div>
 
   </div>

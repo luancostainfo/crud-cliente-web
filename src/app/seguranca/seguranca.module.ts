@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,10 +16,10 @@ import { LoginComponent } from './login/login.component';
   imports: [
     CommonModule,
     SegurancaRoutingModule,
-    SegurancaRoutingModule,
     InputTextModule,
     PasswordModule,
-    ButtonModule
+    ButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class SegurancaModule { }

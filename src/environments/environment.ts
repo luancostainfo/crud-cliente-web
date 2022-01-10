@@ -4,6 +4,7 @@
 
 export const environment = {
   API_URL: 'http://localhost:8080',
+  TOKEN_URL: 'http://localhost:8080/oauth/token',
   production: false
 };
 
