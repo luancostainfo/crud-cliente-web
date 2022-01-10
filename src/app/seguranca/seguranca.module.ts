@@ -7,6 +7,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -19,7 +20,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    }),
+  ],
+  providers: [JwtHelperService]
 })
 export class SegurancaModule { }

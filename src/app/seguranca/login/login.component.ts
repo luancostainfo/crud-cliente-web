@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.usuario = Object.assign({}, this.formularioLogin.value, this.usuario);
-    this.authService.login(this.usuario.usuario, this.usuario.senha).subscribe(value => console.log(value));
+    this.authService.login(this.usuario.usuario, this.usuario.senha);
   }
 
 }
