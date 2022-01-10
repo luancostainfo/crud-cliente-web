@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ClientesService} from "../../shared/servicos/clientes.service";
 import {CepService} from "../../shared/servicos/cep.service";
+import {ClienteDto} from "../../shared/models/ClienteDto.model";
 
 @Component({
   selector: 'app-cliente-form',
@@ -12,6 +13,9 @@ import {CepService} from "../../shared/servicos/cep.service";
 export class ClienteFormComponent implements OnInit {
 
   formulario!: FormGroup;
+  emails: string[] = [];
+  cliente: ClienteDto = new ClienteDto();
+
   // telefones!: TelefoneDto[];
 
   constructor(
@@ -27,13 +31,17 @@ export class ClienteFormComponent implements OnInit {
   }
 
   salvar(): void {
-
+    this.cliente.nome = this.formulario.controls['nome'].value;
+    this.cliente.cpf = this.formulario.controls['cpf'].value;
+    this.cliente.endereco = this.formulario.controls['endereco'].value;
+    this.cliente.emails = this.emails;
   }
 
   private configurarFormulario(): void {
     this.formulario = this.formBuilder.group({
       nome: [''],
       cpf: [''],
+      email: [''],
       endereco: this.formBuilder.group({
         cep: [''],
         uf: [''],
@@ -75,5 +83,13 @@ export class ClienteFormComponent implements OnInit {
         uf: dados.uf
       }
     });
+  }
+
+  addEmail() {
+    this.emails.push(this.formulario.controls['email'].value);
+  }
+
+  removerEmail(emailASerRemovido: string) {
+    this.emails.splice(this.emails.indexOf(emailASerRemovido), 1);
   }
 }

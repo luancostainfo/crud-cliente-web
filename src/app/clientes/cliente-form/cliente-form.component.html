@@ -13,6 +13,21 @@
       <p-inputMask styleClass="inputfield w-full" id="cpf" mask="999.999.999-99" formControlName="cpf"></p-inputMask>
     </div>
 
+    <div class="field col-12 md:col-3">
+      <label for="nomeCompleto">E-mail</label>
+      <div class="p-inputgroup">
+        <input type="text" pInputText formControlName="email">
+        <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn" (click)="addEmail()"></button>
+      </div>
+      <ol *ngIf="emails.length > 0">
+        <li *ngFor="let email of emails">{{ email }}
+          <i style="color: red" class="pi pi-times cursor-pointer" (click)="removerEmail(email)"></i>
+        </li>
+      </ol>
+    </div>
+
+    <div class="col-12"></div>
+
     <ng-container formGroupName="endereco">
       <!-- Endereço -->
       <div class="field col-12 md:col-3">
@@ -55,3 +70,5 @@
 </form>
 
 {{ formulario.value | json }}
+<hr>
+{{ cliente | json }}
