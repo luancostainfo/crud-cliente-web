@@ -11,6 +11,9 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 import { environment } from '../../environments/environment';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ClientesHttpInterceptorService } from '../shared/servicos/clientes-http-interceptor.service';
+
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
 }
@@ -34,7 +37,14 @@ export function tokenGetter(): string | null {
       }
     }),
   ],
-  providers: [JwtHelperService]
+  providers: [
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ClientesHttpInterceptorService,
+      multi: true
+    }
+  ]
 })
 export class SegurancaModule {
 }
