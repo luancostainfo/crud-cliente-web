@@ -5,12 +5,14 @@
 
     <div class="field col-12 md:col-12">
       <label for="usuario">Usuario</label>
-      <input pInputText type="text" id="usuario" class="inputfield w-full" formControlName="usuario">
+      <input pInputText type="text" id="usuario" class="inputfield w-full" formControlName="usuario" autofocus>
+      <div class="p-error" *ngIf="formSubmitted && formularioLogin.controls['usuario'].invalid">Preencha o campo usuário corretamente</div>
     </div>
 
     <div class="field col-12 md:col-12">
       <label for="senha">Senha</label>
       <input pInputText type="password" id="senha" class="inputfield w-full" formControlName="senha">
+      <div class="p-error" *ngIf="formSubmitted && formularioLogin.controls['senha'].invalid">Preencha o campo senha</div>
     </div>
 
     <div class="field col-12 md:col-12">

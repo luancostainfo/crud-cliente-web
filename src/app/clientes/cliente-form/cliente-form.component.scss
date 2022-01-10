@@ -1,3 +1,8 @@
 ol {
   padding-left: 1em;
 }
+
+:host ::ng-deep p-inputmask.ng-dirty.ng-invalid > .p-inputtext,
+:host ::ng-deep .p-inputtext.ng-dirty.ng-invalid {
+  border-color: #ced4da;
+}

@@ -61,18 +61,42 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
     if (this.formulario.valid) {
       this.configurarDto();
       if (this.editando) {
-        this.clientesService.atualizar(this.idCliente, this.cliente).subscribe(() => {
-          this.messageService.add({ severity: 'success', detail: 'Cliente atualizado com sucesso!' });
-          this.router.navigateByUrl('/clientes');
-        });
+        this.atualizar();
       } else {
-        this.clientesService.cadastrar(this.cliente).subscribe(() => {
-          this.messageService.add({ severity: 'success', detail: 'Cliente cadastrado com sucesso!' });
-          this.router.navigateByUrl('/clientes');
-        });
+        this.cadastrar();
       }
     }
     this.formSubmitted = true;
+  }
+
+  private cadastrar(): void {
+    this.clientesService.cadastrar(this.cliente).subscribe(() => {
+        this.messageService.add({severity: 'success', detail: 'Cliente cadastrado com sucesso!'});
+        this.router.navigateByUrl('/clientes');
+      },
+      this.tratarErro()
+    );
+  }
+
+  private atualizar(): void {
+    this.clientesService.atualizar(this.idCliente, this.cliente).subscribe(() => {
+        this.messageService.add({severity: 'success', detail: 'Cliente atualizado com sucesso!'});
+        this.router.navigateByUrl('/clientes');
+      },
+      this.tratarErro());
+  }
+
+  private tratarErro(): (error: any) => void {
+    return (error: any) => {
+      error.error.params.forEach((invalidParam: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: `Erro ${error.error.detail}`,
+          detail: `${invalidParam.param} ${invalidParam.message}`,
+          life: 10000
+        });
+      });
+    };
   }
 
   private configurarDto(): void {
