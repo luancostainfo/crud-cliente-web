@@ -30,4 +30,8 @@ export class ClientesService {
   cadastrar(cliente: ClienteDto): Observable<ClienteDto> {
     return this.http.post<ClienteDto>(this.API_URL, cliente).pipe(take(1));
   }
+
+  atualizar(idCliente: number, cliente: ClienteDto): Observable<ClienteDto> {
+    return this.http.put<ClienteDto>(`${this.API_URL}/${idCliente}`, cliente);
+  }
 }

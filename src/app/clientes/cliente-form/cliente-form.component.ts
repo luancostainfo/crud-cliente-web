@@ -15,6 +15,8 @@ export class ClienteFormComponent implements OnInit {
 
   formulario!: FormGroup;
   formSubmitted!: boolean;
+  editando!: boolean;
+  idCliente!: number;
 
   emails: string[] = [];
   telefones: TelefoneDto[] = [];
@@ -30,18 +32,25 @@ export class ClienteFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurarFormulario();
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.popularFormularioParaEdicao(id);
+    this.idCliente = this.route.snapshot.params['id'];
+    if (this.idCliente) {
+      this.editando = true;
+      this.popularFormularioParaEdicao(this.idCliente);
     }
   }
 
   salvar(): void {
-    if (this.formulario.value) {
+    if (this.formulario.valid) {
       this.configurarDto();
-      this.clientesService.cadastrar(this.cliente).subscribe(() => {
-        this.router.navigateByUrl('/clientes');
-      });
+      if (this.editando) {
+        this.clientesService.atualizar(this.idCliente, this.cliente).subscribe(() => {
+          this.router.navigateByUrl('/clientes');
+        });
+      } else {
+        this.clientesService.cadastrar(this.cliente).subscribe(() => {
+          this.router.navigateByUrl('/clientes');
+        });
+      }
     }
   }
 
