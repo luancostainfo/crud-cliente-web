@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientesHttpInterceptorService } from '../shared/servicos/clientes-http-interceptor.service';
+import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
 
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
@@ -20,7 +21,8 @@ export function tokenGetter(): string | null {
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    NaoAutorizadoComponent
   ],
   imports: [
     CommonModule,
