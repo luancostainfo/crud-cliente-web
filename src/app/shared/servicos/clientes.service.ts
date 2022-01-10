@@ -26,4 +26,8 @@ export class ClientesService {
   excluir(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${id}`).pipe(take(1));
   }
+
+  cadastrar(cliente: ClienteDto): Observable<ClienteDto> {
+    return this.http.post<ClienteDto>(this.API_URL, cliente).pipe(take(1));
+  }
 }

@@ -14,9 +14,10 @@ import {TelefoneDto} from "../../shared/models/TelefoneDto.model";
 export class ClienteFormComponent implements OnInit {
 
   formulario!: FormGroup;
+  formSubmitted!: boolean;
+
   emails: string[] = [];
   telefones: TelefoneDto[] = [];
-
   cliente: ClienteDto = new ClienteDto();
 
   constructor(
@@ -32,12 +33,20 @@ export class ClienteFormComponent implements OnInit {
   }
 
   salvar(): void {
+    if (this.formulario.value) {
+      this.configurarDto();
+      this.clientesService.cadastrar(this.cliente).subscribe(() => {
+        this.router.navigateByUrl('/clientes');
+      });
+    }
+  }
+
+  private configurarDto() {
     this.cliente.nome = this.formulario.controls['nome'].value;
     this.cliente.cpf = this.formulario.controls['cpf'].value;
     this.cliente.endereco = this.formulario.controls['endereco'].value;
     this.cliente.emails = this.emails;
     this.cliente.telefones = this.telefones;
-    console.log('salvando...')
   }
 
   private configurarFormulario(): void {
@@ -60,15 +69,6 @@ export class ClienteFormComponent implements OnInit {
         })
     });
   }
-
-  // private getTelefones(): TelefoneDto[] {
-  //   return [
-  //     {tipoTelefone: 'COMERCIAL', numero: '(61) 3359-5684'},
-  //     {tipoTelefone: 'CELULAR', numero: '(61) 3359-5684'},
-  //     {tipoTelefone: 'RESIDENCIAL', numero: '(61) 3359-5684'}
-  //   ];
-  // }
-
 
   consultarCep() {
     const cep = this.formulario.get('endereco.cep')?.value;
