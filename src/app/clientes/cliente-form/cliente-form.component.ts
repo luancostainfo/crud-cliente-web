@@ -185,4 +185,11 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
     });
   }
 
+  getMascaraTelefone(): string {
+    if (this.formulario.get('telefone.tipoTelefone')?.value === 'CELULAR') {
+      return "(99) 99999-9999";
+    } else {
+      return "(99) 9999-9999";
+    }
+  }
 }

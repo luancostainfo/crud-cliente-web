@@ -31,17 +31,23 @@
           <option value="RESIDENCIAL">Residencial</option>
           <option value="COMERCIAL">Comercial</option>
         </select>
+        <div *ngIf="formulario.get('telefone.tipoTelefone')?.hasError('required') && formSubmitted" class="p-error">
+          Adicione um tipo de telefone.
+        </div>
       </div>
 
       <div class="field col-9">
         <label for="numeroTelefone">Número</label>
         <div class="p-inputgroup">
-          <p-inputMask styleClass="inputfield w-full" class="flex-1" id="numeroTelefone" mask="(99) 99999-9999"
+          <p-inputMask styleClass="inputfield w-full" class="flex-1" id="numeroTelefone" mask="{{getMascaraTelefone()}}"
                        formControlName="numeroTelefone"></p-inputMask>
           <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn"
                   (click)="addTelefone()"></button>
         </div>
-        <div *ngIf="formulario.controls['telefone'].invalid && formSubmitted" class="p-error">
+        <div *ngIf="formulario.get('telefone.numeroTelefone')?.hasError('pattern') && formSubmitted" class="p-error">
+          Adicione um número de telefone válido.
+        </div>
+        <div *ngIf="formulario.get('telefone.numeroTelefone')?.hasError('required') && formSubmitted" class="p-error">
           Adicione pelo menos um telefone para contato.
         </div>
 
