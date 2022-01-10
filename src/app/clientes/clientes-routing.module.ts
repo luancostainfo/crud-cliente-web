@@ -10,6 +10,7 @@ const routes: Routes = [
       {path: '', component: ClientesListagemComponent},
       {path: 'novo', component: ClienteFormComponent},
       {path: 'detalhar/:id', component: ClienteDetalheComponent},
+      {path: 'editar/:id', component: ClienteFormComponent}
     ]
   }
 ];

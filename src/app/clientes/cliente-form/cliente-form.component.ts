@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ClientesService} from "../../shared/servicos/clientes.service";
 import {CepService} from "../../shared/servicos/cep.service";
 import {ClienteDto} from "../../shared/models/ClienteDto.model";
@@ -23,13 +23,17 @@ export class ClienteFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private cepService: CepService,
     private clientesService: ClientesService) {
   }
 
   ngOnInit(): void {
     this.configurarFormulario();
-
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.popularFormularioParaEdicao(id);
+    }
   }
 
   salvar(): void {
@@ -67,6 +71,18 @@ export class ClienteFormComponent implements OnInit {
           tipoTelefone: [''],
           numeroTelefone: ['']
         })
+    });
+  }
+
+  private popularFormularioParaEdicao(id: number): void {
+    this.clientesService.buscarPorId(id).subscribe(contato => {
+      this.formulario.patchValue({
+        nome: contato.nome,
+        cpf: contato.cpf,
+        endereco: contato.endereco,
+      });
+      this.emails = contato.emails;
+      this.telefones = contato.telefones;
     });
   }
 

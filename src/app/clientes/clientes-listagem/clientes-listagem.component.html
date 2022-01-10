@@ -12,7 +12,13 @@
           [routerLink]="['detalhar', cliente.id]"
         >
         </p-button>
-        <p-button styleClass="p-button-outlined p-button-success" label="Editar" icon="pi pi-pencil"></p-button>
+        <p-button
+          styleClass="p-button-outlined p-button-success"
+          label="Editar"
+          icon="pi pi-pencil"
+          [routerLink]="['editar', cliente.id]"
+        >
+        </p-button>
         <p-button
           styleClass="p-button-outlined p-button-danger"
           label="Excluir"
