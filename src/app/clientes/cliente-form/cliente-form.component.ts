@@ -6,6 +6,7 @@ import { CepService } from "../../shared/servicos/cep.service";
 import { ClienteDto } from "../../shared/models/ClienteDto.model";
 import { TelefoneDto } from "../../shared/models/TelefoneDto.model";
 import { Observable, Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cliente-form',
@@ -33,7 +34,8 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
     private router: Router,
     private route: ActivatedRoute,
     private cepService: CepService,
-    private clientesService: ClientesService) {
+    private clientesService: ClientesService,
+    private messageService: MessageService) {
   }
 
   ngOnDestroy(): void {
@@ -60,10 +62,12 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
       this.configurarDto();
       if (this.editando) {
         this.clientesService.atualizar(this.idCliente, this.cliente).subscribe(() => {
+          this.messageService.add({ severity: 'success', detail: 'Cliente atualizado com sucesso!' });
           this.router.navigateByUrl('/clientes');
         });
       } else {
         this.clientesService.cadastrar(this.cliente).subscribe(() => {
+          this.messageService.add({ severity: 'success', detail: 'Cliente cadastrado com sucesso!' });
           this.router.navigateByUrl('/clientes');
         });
       }
@@ -174,11 +178,11 @@ export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChec
   private validarTelefone() {
     this.telefonesSubscription = this.telefonesObservable.subscribe(value => {
       if (this.telefones.length == 0) {
-        this.formulario.get('telefone.numeroTelefone')?.addValidators([Validators.required, ]);
-        this.formulario.get('telefone.tipoTelefone')?.addValidators([Validators.required, ]);
+        this.formulario.get('telefone.numeroTelefone')?.addValidators([Validators.required,]);
+        this.formulario.get('telefone.tipoTelefone')?.addValidators([Validators.required,]);
       } else {
-        this.formulario.get('telefone.numeroTelefone')?.removeValidators([Validators.required, ]);
-        this.formulario.get('telefone.tipoTelefone')?.removeValidators([Validators.required, ]);
+        this.formulario.get('telefone.numeroTelefone')?.removeValidators([Validators.required,]);
+        this.formulario.get('telefone.tipoTelefone')?.removeValidators([Validators.required,]);
       }
       this.formulario.get('telefone.tipoTelefone')?.updateValueAndValidity();
       this.formulario.get('telefone.numeroTelefone')?.updateValueAndValidity();

@@ -7,9 +7,7 @@ import { AuthService } from '../../shared/servicos/auth.service';
 @Component({
   selector: 'app-clientes-listagem',
   templateUrl: './clientes-listagem.component.html',
-  styleUrls: ['./clientes-listagem.component.scss'],
-  providers: [ConfirmationService, MessageService]
-
+  styleUrls: ['./clientes-listagem.component.scss']
 })
 export class ClientesListagemComponent implements OnInit {
 

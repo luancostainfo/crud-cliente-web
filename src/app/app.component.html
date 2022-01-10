@@ -4,4 +4,6 @@
     <p-button (click)="logout()" styleClass="p-button-warn" label="Logout"></p-button>
   </div>
   <router-outlet></router-outlet>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast></p-toast>
 </div>

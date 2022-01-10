@@ -41,6 +41,3 @@
 
 <p-button styleClass="p-button-primary mt-5" label="Novo Cliente" icon="pi pi-plus" routerLink="novo"
           *ngIf="auth.temPermissao('ROLE_CADASTRAR_CLIENTE')"></p-button>
-
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-<p-toast></p-toast>
