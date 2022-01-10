@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ClientesService} from "../../shared/servicos/clientes.service";
-import {CepService} from "../../shared/servicos/cep.service";
-import {ClienteDto} from "../../shared/models/ClienteDto.model";
-import {TelefoneDto} from "../../shared/models/TelefoneDto.model";
+import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ClientesService } from "../../shared/servicos/clientes.service";
+import { CepService } from "../../shared/servicos/cep.service";
+import { ClienteDto } from "../../shared/models/ClienteDto.model";
+import { TelefoneDto } from "../../shared/models/TelefoneDto.model";
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-form',
   templateUrl: './cliente-form.component.html',
   styleUrls: ['./cliente-form.component.scss']
 })
-export class ClienteFormComponent implements OnInit {
+export class ClienteFormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   formulario!: FormGroup;
   formSubmitted!: boolean;
@@ -22,12 +23,22 @@ export class ClienteFormComponent implements OnInit {
   telefones: TelefoneDto[] = [];
   cliente: ClienteDto = new ClienteDto();
 
+  emailsObservable = new Observable(subscriber => subscriber.next(this.emails.length));
+  telefonesObservable = new Observable(subscriber => subscriber.next(this.telefones.length));
+  private emailsSubscription!: Subscription;
+  private telefonesSubscription!: Subscription;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private cepService: CepService,
     private clientesService: ClientesService) {
+  }
+
+  ngOnDestroy(): void {
+    this.emailsSubscription.unsubscribe();
+    this.telefonesSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -37,6 +48,11 @@ export class ClienteFormComponent implements OnInit {
       this.editando = true;
       this.popularFormularioParaEdicao(this.idCliente);
     }
+  }
+
+  ngAfterContentChecked(): void {
+    this.validarEmail();
+    this.validarTelefone();
   }
 
   salvar(): void {
@@ -52,9 +68,10 @@ export class ClienteFormComponent implements OnInit {
         });
       }
     }
+    this.formSubmitted = true;
   }
 
-  private configurarDto() {
+  private configurarDto(): void {
     this.cliente.nome = this.formulario.controls['nome'].value;
     this.cliente.cpf = this.formulario.controls['cpf'].value;
     this.cliente.endereco = this.formulario.controls['endereco'].value;
@@ -64,23 +81,24 @@ export class ClienteFormComponent implements OnInit {
 
   private configurarFormulario(): void {
     this.formulario = this.formBuilder.group({
-      nome: [''],
-      cpf: [''],
-      email: [''],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      cpf: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: [''],
-        uf: [''],
-        cidade: [''],
-        bairro: [''],
-        logradouro: [''],
+        cep: ['', Validators.required],
+        uf: ['', Validators.required],
+        cidade: ['', Validators.required],
+        bairro: ['', Validators.required],
+        logradouro: ['', Validators.required],
         complemento: ['']
       }),
       telefone: this.formBuilder.group(
         {
-          tipoTelefone: [''],
-          numeroTelefone: ['']
+          tipoTelefone: ['', [Validators.required]],
+          numeroTelefone: ['', Validators.pattern('^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$')]
         })
     });
+
   }
 
   private popularFormularioParaEdicao(id: number): void {
@@ -95,7 +113,7 @@ export class ClienteFormComponent implements OnInit {
     });
   }
 
-  consultarCep() {
+  consultarCep(): void {
     const cep = this.formulario.get('endereco.cep')?.value;
     console.log('cep aqui', cep);
     if (cep != null && cep !== '') {
@@ -118,8 +136,11 @@ export class ClienteFormComponent implements OnInit {
   }
 
   addEmail() {
-    this.emails.push(this.formulario.controls['email'].value);
-    this.formulario.controls['email'].reset();
+    if (this.formulario.controls['email'].valid) {
+      this.emails.push(this.formulario.controls['email'].value);
+      this.formulario.controls['email'].reset();
+    }
+
   }
 
   removerEmail(emailASerRemovido: string) {
@@ -127,13 +148,41 @@ export class ClienteFormComponent implements OnInit {
   }
 
   addTelefone() {
-    let telefoneDto: TelefoneDto;
-    telefoneDto = this.formulario.controls['telefone'].value;
-    this.telefones.push(telefoneDto);
-    this.formulario.controls['telefone'].reset();
+    if (this.formulario.get('telefone.numeroTelefone')?.valid && this.formulario.get('telefone.tipoTelefone')?.valid) {
+      let telefoneDto: TelefoneDto;
+      telefoneDto = this.formulario.controls['telefone'].value;
+      this.telefones.push(telefoneDto);
+      this.formulario.controls['telefone'].reset();
+    }
   }
 
   removerTelefone(telefoneASerRemovido: TelefoneDto) {
     this.telefones.splice(this.telefones.indexOf(telefoneASerRemovido), 1);
   }
+
+  private validarEmail() {
+    this.emailsSubscription = this.emailsObservable.subscribe(value => {
+      if (value == 0) {
+        this.formulario.controls['email'].addValidators([Validators.required,]);
+      } else {
+        this.formulario.controls['email'].removeValidators(Validators.required);
+      }
+      this.formulario.controls["email"].updateValueAndValidity();
+    });
+  }
+
+  private validarTelefone() {
+    this.telefonesSubscription = this.telefonesObservable.subscribe(value => {
+      if (this.telefones.length == 0) {
+        this.formulario.get('telefone.numeroTelefone')?.addValidators([Validators.required, ]);
+        this.formulario.get('telefone.tipoTelefone')?.addValidators([Validators.required, ]);
+      } else {
+        this.formulario.get('telefone.numeroTelefone')?.removeValidators([Validators.required, ]);
+        this.formulario.get('telefone.tipoTelefone')?.removeValidators([Validators.required, ]);
+      }
+      this.formulario.get('telefone.tipoTelefone')?.updateValueAndValidity();
+      this.formulario.get('telefone.numeroTelefone')?.updateValueAndValidity();
+    });
+  }
+
 }

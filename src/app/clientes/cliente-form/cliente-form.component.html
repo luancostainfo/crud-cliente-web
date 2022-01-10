@@ -6,11 +6,19 @@
     <div class="field col-12 md:col-6">
       <label for="nomeCompleto">Nome Completo</label>
       <input pInputText id="nomeCompleto" type="text" class="inputfield w-full" formControlName="nome">
+
+      <div *ngIf="formulario.controls['nome'].invalid && formSubmitted" class="p-error">
+        Preencha o campo nome com no mínimo 3 e no máximo 100 caracteres.
+      </div>
+
     </div>
 
     <div class="field col-12 md:col-6">
       <label for="cpf">CPF</label>
       <p-inputMask styleClass="inputfield w-full" id="cpf" mask="999.999.999-99" formControlName="cpf"></p-inputMask>
+      <div *ngIf="formulario.controls['cpf'].invalid && formSubmitted" class="p-error">
+        Preencha um CPF válido.
+      </div>
     </div>
 
     <div class="inline-flex justify-content-between field col-12 md:col-6" formGroupName="telefone">
@@ -33,6 +41,9 @@
           <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn"
                   (click)="addTelefone()"></button>
         </div>
+        <div *ngIf="formulario.controls['telefone'].invalid && formSubmitted" class="p-error">
+          Adicione pelo menos um telefone para contato.
+        </div>
 
         <ol *ngIf="telefones.length > 0">
           <li *ngFor="let telefone of telefones">
@@ -41,8 +52,6 @@
           </li>
         </ol>
       </div>
-
-
 
     </div>
 
@@ -53,6 +62,10 @@
         <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn"
                 (click)="addEmail()"></button>
       </div>
+      <div *ngIf="formulario.controls['email'].invalid && formSubmitted" class="p-error">
+        Adicione pelo menos um e-mail para contato.
+      </div>
+
       <ol *ngIf="emails.length > 0">
         <li *ngFor="let email of emails">{{ email }}
           <i style="color: red" class="pi pi-times cursor-pointer" (click)="removerEmail(email)"></i>
@@ -68,6 +81,9 @@
         <label for="cep">CEP</label>
         <p-inputMask styleClass="inputfield w-full" id="cep" mask="99.999-999" formControlName="cep"
                      (onBlur)="consultarCep()"></p-inputMask>
+        <div *ngIf="formulario.controls['endereco'].get('cep')?.invalid && formSubmitted" class="p-error">
+          Preencha o campo cep.
+        </div>
       </div>
 
       <div class="col-12"></div>
@@ -75,21 +91,33 @@
       <div class="field col-12 md:col-3">
         <label for="estado">UF</label>
         <input pInputText id="estado" type="text" class="inputfield w-full" formControlName="uf">
+        <div *ngIf="formulario.controls['endereco'].get('uf')?.invalid && formSubmitted" class="p-error">
+          Preencha o campo UF.
+        </div>
       </div>
 
       <div class="field col-12 md:col-3">
         <label for="cidade">Cidade</label>
         <input pInputText id="cidade" type="text" class="inputfield w-full" formControlName="cidade">
+        <div *ngIf="formulario.controls['endereco'].get('cidade')?.invalid && formSubmitted" class="p-error">
+          Preencha o campo cidade.
+        </div>
       </div>
 
       <div class="field col-12 md:col-3">
         <label for="bairro">Bairro</label>
         <input pInputText id="bairro" type="text" class="inputfield w-full" formControlName="bairro">
+        <div *ngIf="formulario.controls['endereco'].get('bairro')?.invalid && formSubmitted" class="p-error">
+          Preencha o campo bairro.
+        </div>
       </div>
 
       <div class="field col-12 md:col-3">
         <label for="logradouro">Logradouro</label>
         <input pInputText id="logradouro" type="text" class="inputfield w-full" formControlName="logradouro">
+        <div *ngIf="formulario.controls['endereco'].get('cep')?.invalid && formSubmitted" class="p-error">
+          Preencha o campo logradouro.
+        </div>
       </div>
 
       <div class="field col-12 md:col-3">
