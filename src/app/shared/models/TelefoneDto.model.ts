@@ -1,4 +1,4 @@
-export interface TelefoneDto {
-  tipoTelefone: string;
-  numeroTelefone: string;
+export class TelefoneDto {
+  tipoTelefone!: string;
+  numeroTelefone!: string;
 }

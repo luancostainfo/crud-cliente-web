@@ -13,11 +13,45 @@
       <p-inputMask styleClass="inputfield w-full" id="cpf" mask="999.999.999-99" formControlName="cpf"></p-inputMask>
     </div>
 
-    <div class="field col-12 md:col-3">
-      <label for="nomeCompleto">E-mail</label>
+    <div class="inline-flex justify-content-between field col-12 md:col-6" formGroupName="telefone">
+
+      <div class="field col-3">
+        <label for="tipoTelefone">Tipo Telefone</label>
+        <select formControlName="tipoTelefone" id="tipoTelefone" class="p-inputtext p-dropdown"
+                style="appearance: auto">
+          <option value="CELULAR">Celular</option>
+          <option value="RESIDENCIAL">Residencial</option>
+          <option value="COMERCIAL">Comercial</option>
+        </select>
+      </div>
+
+      <div class="field col-9">
+        <label for="numeroTelefone">Número</label>
+        <div class="p-inputgroup">
+          <p-inputMask styleClass="inputfield w-full" class="flex-1" id="numeroTelefone" mask="(99) 99999-9999"
+                       formControlName="numeroTelefone"></p-inputMask>
+          <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn"
+                  (click)="addTelefone()"></button>
+        </div>
+
+        <ol *ngIf="telefones.length > 0">
+          <li *ngFor="let telefone of telefones">
+            {{ telefone.tipoTelefone }} - {{ telefone.numeroTelefone }}
+            <i style="color: red" class="pi pi-times cursor-pointer" (click)="removerTelefone(telefone)"></i>
+          </li>
+        </ol>
+      </div>
+
+
+
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="email">E-mail</label>
       <div class="p-inputgroup">
-        <input type="text" pInputText formControlName="email">
-        <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn" (click)="addEmail()"></button>
+        <input id="email" type="text" pInputText formControlName="email">
+        <button type="button" pButton pRipple icon="pi pi-plus-circle" styleClass="p-button-warn"
+                (click)="addEmail()"></button>
       </div>
       <ol *ngIf="emails.length > 0">
         <li *ngFor="let email of emails">{{ email }}

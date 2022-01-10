@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {ClientesService} from "../../shared/servicos/clientes.service";
 import {CepService} from "../../shared/servicos/cep.service";
 import {ClienteDto} from "../../shared/models/ClienteDto.model";
+import {TelefoneDto} from "../../shared/models/TelefoneDto.model";
 
 @Component({
   selector: 'app-cliente-form',
@@ -14,9 +15,9 @@ export class ClienteFormComponent implements OnInit {
 
   formulario!: FormGroup;
   emails: string[] = [];
-  cliente: ClienteDto = new ClienteDto();
+  telefones: TelefoneDto[] = [];
 
-  // telefones!: TelefoneDto[];
+  cliente: ClienteDto = new ClienteDto();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +36,8 @@ export class ClienteFormComponent implements OnInit {
     this.cliente.cpf = this.formulario.controls['cpf'].value;
     this.cliente.endereco = this.formulario.controls['endereco'].value;
     this.cliente.emails = this.emails;
+    this.cliente.telefones = this.telefones;
+    console.log('salvando...')
   }
 
   private configurarFormulario(): void {
@@ -50,7 +53,11 @@ export class ClienteFormComponent implements OnInit {
         logradouro: [''],
         complemento: ['']
       }),
-      // telefones: [this.getTelefones()]
+      telefone: this.formBuilder.group(
+        {
+          tipoTelefone: [''],
+          numeroTelefone: ['']
+        })
     });
   }
 
@@ -87,9 +94,21 @@ export class ClienteFormComponent implements OnInit {
 
   addEmail() {
     this.emails.push(this.formulario.controls['email'].value);
+    this.formulario.controls['email'].reset();
   }
 
   removerEmail(emailASerRemovido: string) {
     this.emails.splice(this.emails.indexOf(emailASerRemovido), 1);
+  }
+
+  addTelefone() {
+    let telefoneDto: TelefoneDto;
+    telefoneDto = this.formulario.controls['telefone'].value;
+    this.telefones.push(telefoneDto);
+    this.formulario.controls['telefone'].reset();
+  }
+
+  removerTelefone(telefoneASerRemovido: TelefoneDto) {
+    this.telefones.splice(this.telefones.indexOf(telefoneASerRemovido), 1);
   }
 }
