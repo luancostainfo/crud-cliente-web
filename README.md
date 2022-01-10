@@ -27,19 +27,25 @@ Vídeo da aplicação em funcionamento: https://youtu.be/1Qa6lM4i2lA
 - senha: 123456
 
 **Página de login**
+
 ![image](https://user-images.githubusercontent.com/73789803/148782931-52356305-4e5f-45fa-b2d5-e9f1a1dbb4b5.png)
 
 **Página de listagem de clientes**
+
 ![image](https://user-images.githubusercontent.com/73789803/148783318-221a1625-8473-4367-8130-a59b828b9529.png)
 
 **Página de detalhamento de cliente**
+
 ![image](https://user-images.githubusercontent.com/73789803/148783459-cf7cda0c-9241-4cda-b679-df68eadd993d.png)
 
 **Página de cadastro de cliente**
+
 ![image](https://user-images.githubusercontent.com/73789803/148783550-f44cb8cc-a58a-4eaa-b6b3-067ad5091ba5.png)
 
 **Página de edição de cliente**
+
 ![image](https://user-images.githubusercontent.com/73789803/148783628-2e688c13-47e5-4eeb-b9b4-8d60fc76abd2.png)
 
 **Confirmação de exclusão de cliente**
+
 ![image](https://user-images.githubusercontent.com/73789803/148783728-7456b7b7-edc4-416e-af58-c727a779ac3c.png)
