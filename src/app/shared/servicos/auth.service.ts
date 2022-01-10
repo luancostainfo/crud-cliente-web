@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   private oAuthTokenUrl = environment.TOKEN_URL;
-  private jwtPayload: any;
+  jwtPayload: any;
 
   constructor(
     private jwtHelper: JwtHelperService,
@@ -54,5 +54,9 @@ export class AuthService {
     if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  temPermissao(permissao: string): any {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 }

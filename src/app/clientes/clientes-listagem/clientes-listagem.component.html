@@ -10,6 +10,7 @@
           label="Ver"
           icon="pi pi-eye"
           [routerLink]="['detalhar', cliente.id]"
+          *ngIf="auth.temPermissao('ROLE_VISUALIZAR_CLIENTE')"
         >
         </p-button>
         <p-button
@@ -17,6 +18,7 @@
           label="Editar"
           icon="pi pi-pencil"
           [routerLink]="['editar', cliente.id]"
+          *ngIf="auth.temPermissao('ROLE_ALTERAR_CLIENTE')"
         >
         </p-button>
         <p-button
@@ -24,6 +26,7 @@
           label="Excluir"
           icon="pi pi-trash"
           (click)="confirmarExclusao(cliente.id)"
+          *ngIf="auth.temPermissao('ROLE_EXCLUIR_CLIENTE')"
         >
         </p-button>
       </ng-template>
@@ -36,7 +39,8 @@
   <ng-template #semClientesCadastrados>Não há clientes cadastrados.</ng-template>
 </div>
 
-<p-button styleClass="p-button-primary mt-5" label="Novo Cliente" icon="pi pi-plus" routerLink="novo"></p-button>
+<p-button styleClass="p-button-primary mt-5" label="Novo Cliente" icon="pi pi-plus" routerLink="novo"
+          *ngIf="auth.temPermissao('ROLE_CADASTRAR_CLIENTE')"></p-button>
 
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 <p-toast></p-toast>

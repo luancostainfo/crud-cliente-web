@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ClientesService} from "../../shared/servicos/clientes.service";
 import {ClienteResumido} from "../../shared/models/ClienteResumido.model";
 import {ConfirmationService, MessageService} from "primeng/api";
+import { AuthService } from '../../shared/servicos/auth.service';
 
 @Component({
   selector: 'app-clientes-listagem',
@@ -16,7 +17,8 @@ export class ClientesListagemComponent implements OnInit {
 
   constructor(private clientesService: ClientesService,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              public auth: AuthService) {
   }
 
   ngOnInit(): void {
