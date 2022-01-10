@@ -1,4 +1,4 @@
-<h1>Cliente</h1>
+<h1 class="text-gray-800">{{ editando ? 'Editar' : 'Cadastrar' }} Cliente</h1>
 
 <form [formGroup]="formulario" class="card">
   <div class="formgrid grid">
@@ -134,9 +134,6 @@
 
   </div>
 
-  <p-button type="submit" (click)="salvar()" styleClass="p-button-primary mt-5 w-full" label="Salvar"></p-button>
+  <p-button (click)="salvar()" styleClass="p-button-success mr-2" label="Salvar"></p-button>
+  <p-button type="button" [routerLink]="['/clientes']" styleClass="p-button-secondary mr-2" label="Voltar"></p-button>
 </form>
-
-{{ formulario.value | json }}
-<hr>
-{{ cliente | json }}
