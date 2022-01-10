@@ -5,6 +5,7 @@
 export const environment = {
   API_URL: 'http://localhost:8080',
   TOKEN_URL: 'http://localhost:8080/oauth/token',
+  LOGOUT_URL: 'http://localhost:8080/tokens/revoke',
   tokenAllowedDomains: [new RegExp('localhost:8080')],
   tokenDisallowedRoutes: [new RegExp('\/oauth\/token')],
   production: false

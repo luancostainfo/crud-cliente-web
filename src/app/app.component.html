@@ -1,3 +1,7 @@
 <div class="container">
+  <div *ngIf="exibirMenu()">
+    <h1 class="font-light">Logado com <strong>{{ auth.jwtPayload?.user_name }}</strong></h1>
+    <p-button (click)="logout()" styleClass="p-button-warn" label="Logout"></p-button>
+  </div>
   <router-outlet></router-outlet>
 </div>
